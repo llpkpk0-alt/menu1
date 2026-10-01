@@ -1,0 +1,342 @@
+================================================================
+  MR CAFÉ — WEBSITE EDIT GUIDE
+  Where to find and change everything on the website
+================================================================
+
+HOW TO USE THIS FILE:
+  - Find the part of the website you want to change below
+  - It will tell you WHICH FILE to open and WHERE exactly
+  - Then tell me what you want to change and I will do it for you
+
+================================================================
+  FILES IN YOUR PROJECT
+================================================================
+
+  index.html  → The structure/layout of the page (what exists)
+  style.css   → The design (colors, sizes, fonts, spacing)
+  script.js   → The menu data + all language text + logic
+
+================================================================
+  1. CAFÉ NAME & TAGLINE (top-left in header)
+================================================================
+
+  FILE: index.html — Lines 38–39
+  --------------------------------
+  Change "Mr Café" to your café's real name:
+    Line 38: <span class="café-name">Mr Café</span>
+    Line 39: <span class="café-tagline" ...>Coffee & More</span>
+
+  NOTE: The tagline in ALL 3 LANGUAGES is in script.js:
+    FILE: script.js — Look for this section:
+      en: { footer_tagline: "Coffee & More" ... }
+      ku: { footer_tagline: "قاوە و زیاتر"  ... }
+      ar: { footer_tagline: "قهوة وأكثر"    ... }
+
+================================================================
+  2. LANGUAGE SELECTION SCREEN & SWITCHER
+================================================================
+
+  FILE: index.html — Look for: <div class="lang-modal-overlay">
+  --------------------------------
+  Shows immediately when a guest opens the website:
+  Presents 3 choices: English, کوردی (Kurdish), and عربي (Arabic).
+  Tapping a choice immediately unlocks the menu in that language!
+
+  FILE: index.html — Inside <header>: <nav class="lang-switcher">
+  --------------------------------
+  The persistent EN | کوردی | عربي buttons in the top header
+  allow guests to switch languages anytime while browsing.
+
+  FILE: script.js — The UI object
+  --------------------------------
+  All translated interface text for English, Kurdish, and Arabic.
+
+================================================================
+  3. HEADER COLORS & STYLE
+================================================================
+
+  FILE: style.css
+  --------------------------------
+  - Header background color:
+      Look for: .site-header { background: var(--brown-dark); }
+
+  - To change ALL colors at once, edit the CSS Variables at the top:
+      Look for: :root { section, around lines 10–30
+        --brown-dark   = very dark brown (header background)
+        --brown-coffee = coffee brown (buttons, accents)
+        --cream        = main page background
+        --gold         = Popular badge & active buttons
+        --text-body    = main text color
+
+================================================================
+  4. CATEGORY NAV BAR (Coffee | Cold Drinks | Tea | ...)
+================================================================
+
+  FILE: script.js
+  --------------------------------
+  - Category ORDER: Look for this line near the top:
+      const categories = ["coffee", "cold", "tea", "desserts", "snacks"];
+    Change the order here to reorder the tabs.
+
+  - Category NAMES in all languages:
+      Inside the UI object, find:
+        categories: {
+          coffee:   "Coffee",
+          cold:     "Cold Drinks",
+          tea:      "Tea",
+          desserts: "Desserts",
+          snacks:   "Snacks"
+        }
+      There is one block like this for EN, KU, and AR.
+
+  - Category ICONS (emojis on the tabs):
+      cat_icons: {
+        coffee:   "☕",
+        cold:     "🧊",
+        tea:      "🍵",
+        desserts: "🍰",
+        snacks:   "🥐"
+      }
+
+  FILE: style.css
+  --------------------------------
+  - Nav bar background:    .cat-nav { background: ... }
+  - Active tab underline:  .cat-btn.active { border-bottom-color: ... }
+  - Tab text size:         .cat-btn { font-size: ... }
+
+================================================================
+  5. SEARCH BAR
+================================================================
+
+  FILE: index.html — Line 69
+  --------------------------------
+  The search input HTML is here.
+
+  FILE: script.js
+  --------------------------------
+  - Placeholder text in all languages:
+      search_placeholder: "Search menu..."   ← English
+      search_placeholder: "گەڕان لە مێنیودا..."  ← Kurdish
+      search_placeholder: "ابحث في القائمة..."   ← Arabic
+
+  FILE: style.css
+  --------------------------------
+  - Search bar style: .search-input { ... }
+  - Search bar wrapper background: .search-wrapper { ... }
+
+================================================================
+  6. MENU ITEMS (add / edit / remove items)
+================================================================
+
+  FILE: script.js — Look for: const menuItems = [
+  --------------------------------
+  Each item looks like this:
+
+    {
+      id:       "cappuccino",         ← unique ID (no spaces)
+      category: "coffee",             ← coffee / cold / tea / desserts / snacks
+      popular:  true,                 ← true = shows "Popular" badge, false = no badge
+      image:    "images/cappuccino.jpg",  ← path to image file (or leave as is)
+      name: {
+        en: "Cappuccino",
+        ku: "کاپوچینۆ",
+        ar: "كابتشينو"
+      },
+      desc: {
+        en: "Espresso with steamed milk and foam",
+        ku: "ئێسپریسۆ لەگەڵ شیر و فۆم",
+        ar: "إسبريسو مع الحليب المبخر والرغوة"
+      },
+      price: "4,000 IQD"             ← change price here
+    },
+
+  TO ADD A NEW ITEM:
+    Copy one of the blocks above, paste it inside the [ ] array,
+    change the details, and save.
+
+  TO REMOVE AN ITEM:
+    Delete the entire { ... }, block for that item.
+
+  TO CHANGE A PRICE:
+    Find the item by its id or name, then change the price: "..." value.
+
+  TO MARK AS POPULAR:
+    Set popular: true
+
+================================================================
+  7. MENU CARD DESIGN (how each item card looks)
+================================================================
+
+  FILE: style.css
+  --------------------------------
+  - Card box:           .menu-card { ... }
+  - Card image area:    .card-image-wrap { ... }
+  - Item name text:     .menu-item-name { ... }
+  - Description text:   .menu-item-desc { ... }
+  - Price text:         .menu-item-price { ... }
+  - Popular badge:      .badge-popular { ... }
+  - Card placeholder:   .card-placeholder { ... }
+                        (shown when image is missing)
+
+  - Grid columns (how many cards per row):
+      .menu-grid { grid-template-columns: ... }
+      Mobile:  1 column  (default)
+      Tablet:  2 columns (min-width: 560px)
+      Desktop: 3 columns (min-width: 800px)
+
+================================================================
+  8. SECTION TITLES (e.g. "Coffee", "Tea" headings)
+================================================================
+
+  FILE: style.css
+  --------------------------------
+  - Title font & size:  .section-title { font-size: ... }
+  - Decorative line:    .section-divider { ... }
+
+  The actual text comes from:
+  FILE: script.js → UI object → categories block (see #4 above)
+
+================================================================
+  9. HERO 3D MOVIE VIDEO SHAPES (Circular 3D Carousel)
+================================================================
+
+  FILE: index.html — Look for: <div class="hero-cards-track">
+  --------------------------------
+  Contains the 3 movie shapes (hc1, hc2, hc3).
+  To put real videos inside any shape, add a <video> tag inside .hero-card:
+    <div class="hero-card" id="hc1">
+      <video src="images/your_video.mp4" autoplay loop muted playsinline></video>
+    </div>
+
+  FILE: style.css — Look for: .hero-card
+  --------------------------------
+  Video format: 16:9 Widescreen Movie Format (NOT vertical reels!)
+  Sizes for the 3 devices:
+    - Desktop: 380 × 214 px (aspect-ratio: 16 / 9)
+    - Tablet:  310 × 175 px
+    - Mobile:  240 × 135 px
+
+  FILE: script.js — Look for: setupHeroCards()
+  --------------------------------
+  Controls the smooth 3D circular rotation (swiping, clicking,
+  and auto-rotating in a circle).
+
+================================================================
+  10. FOOTER
+================================================================
+
+  FILE: index.html — Bottom of file (last ~10 lines)
+  --------------------------------
+  - Café name in footer
+  - Copyright text: change the year or text in the <p> tag
+
+  FILE: script.js → UI object → footer_tagline (per language)
+
+  FILE: style.css → .site-footer { ... }
+
+================================================================
+  11. FONTS
+================================================================
+
+  FILE: index.html — Lines 15–18 (Google Fonts link)
+  FILE: style.css  — Top, inside :root { --font-serif / --font-sans }
+
+  Current fonts used:
+    English:         Playfair Display (headings) + Lato (body)
+    Arabic/Kurdish:  Noto Naskh Arabic + Noto Sans Arabic
+
+================================================================
+  12. PAGE BACKGROUND COLOR
+================================================================
+
+  FILE: style.css — Top, inside :root:
+    --cream:       #f5efe6   ← main background
+    --cream-light: #faf6f0   ← slightly lighter areas
+    --cream-card:  #fffdf9   ← card background
+
+================================================================
+  13. IMAGES
+================================================================
+
+  FOLDER: images/
+  --------------------------------
+  Place your image files inside the images/ folder.
+  Name them to match the "image" field in script.js
+
+  Example:
+    item has:  image: "images/cappuccino.jpg"
+    So put:    images/cappuccino.jpg  in the images folder
+
+  If an image file is missing, the website automatically shows
+  a beautiful dark placeholder with the category icon.
+
+================================================================
+  14. RTL (Right-to-Left for Arabic & Kurdish)
+================================================================
+
+  FILE: style.css
+  --------------------------------
+  - RTL mode is applied automatically when language is switched
+  - body.rtl { direction: rtl; }
+  - Special RTL overrides for badges, search icon, etc.
+    Look for selectors starting with: body.rtl
+
+  FILE: script.js → setLanguage() function
+  --------------------------------
+  The function adds/removes the "rtl" class automatically.
+  You don't need to touch this.
+
+================================================================
+  15. SOCIAL MEDIA & LOCATION LINKS (Top Header Bar)
+================================================================
+
+  FILE: index.html — Look for: <nav class="top-social-bar">
+  --------------------------------
+  Each icon has an <a href="#" ...> link.
+  Whenever you want to add or change your links, just replace "#" with your real URL:
+
+  1. Instagram:
+     <a href="https://instagram.com/your_account" class="social-btn instagram" ...>
+
+  2. Facebook:
+     <a href="https://facebook.com/your_page" class="social-btn facebook" ...>
+
+  3. TikTok:
+     <a href="https://tiktok.com/@your_account" class="social-btn tiktok" ...>
+
+  4. WhatsApp:
+     <a href="https://wa.me/9647XXXXXXXXX" class="social-btn whatsapp" ...>
+
+  5. Snapchat:
+     <a href="https://snapchat.com/add/your_username" class="social-btn snapchat" ...>
+
+  6. Location (Google Maps):
+     <a href="https://maps.google.com/?q=your_coordinates" class="social-btn location" ...>
+
+================================================================
+  QUICK CHANGE CHEAT SHEET
+================================================================
+
+  What you want to change         | File         | What to look for
+  --------------------------------|--------------|---------------------------
+  Café name                       | index.html   | <span class="café-name">
+  Menu item name/desc/price       | script.js    | const menuItems = [
+  Add new menu item               | script.js    | const menuItems = [
+  Remove menu item                | script.js    | const menuItems = [
+  Mark item as Popular            | script.js    | popular: true
+  Category order                  | script.js    | const categories = [
+  Category names (all languages)  | script.js    | UI → categories: { }
+  Language button labels          | index.html   | class="lang-btn"
+  All colors                      | style.css    | :root { -- variables }
+  Header color                    | style.css    | .site-header
+  Nav bar style                   | style.css    | .cat-nav
+  Search bar style                | style.css    | .search-input
+  Card design                     | style.css    | .menu-card
+  Fonts                           | style.css    | --font-serif / --font-sans
+  Footer text                     | index.html   | <footer>
+  Welcome/hero message            | script.js    | UI → welcome / hero_subtitle
+  Add an image                    | images/      | put file in images/ folder
+
+================================================================
+  END OF GUIDE
+================================================================

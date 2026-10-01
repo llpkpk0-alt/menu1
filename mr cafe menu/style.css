@@ -1,0 +1,2011 @@
+/* ============================================================
+   MR CAFÉ — Premium Digital Menu
+   style.css
+   ============================================================ */
+
+/* ---------- Google Fonts ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&family=Noto+Naskh+Arabic:wght@400;600;700&family=Noto+Sans+Arabic:wght@300;400;600&display=swap');
+
+/* ---------- CSS Variables ---------- */
+:root {
+  --cream:        #f5efe6;
+  --cream-light:  #faf6f0;
+  --cream-card:   #fffdf9;
+  --brown-dark:   #2c1a0e;
+  --brown-mid:    #5c3317;
+  --brown-coffee: #7b4a1e;
+  --brown-light:  #a0622a;
+  --brown-warm:   #c8874a;
+  --gold:         #b8860b;
+  --gold-light:   #d4a843;
+  --black-soft:   #1a1008;
+  --text-body:    #3d2414;
+  --text-muted:   #7a5c3e;
+  --border:       #d9c4a8;
+  --border-light: #e8d9c4;
+  --shadow-sm:    0 2px 8px rgba(44,26,14,0.08);
+  --shadow-md:    0 4px 20px rgba(44,26,14,0.12);
+  --shadow-lg:    0 8px 40px rgba(44,26,14,0.16);
+  --radius-sm:    6px;
+  --radius-md:    10px;
+  --radius-lg:    16px;
+  --font-serif:   'Playfair Display', 'Noto Naskh Arabic', Georgia, serif;
+  --font-sans:    'Lato', 'Noto Sans Arabic', 'Segoe UI', sans-serif;
+  --transition:   0.25s ease;
+}
+
+/* ---------- Reset & Base ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--cream);
+  background-image: url('images/cafe_bg_pattern.jpg');
+  background-repeat: repeat;
+  background-size: 620px auto;
+  background-attachment: fixed;
+  color: var(--text-body);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  direction: ltr;
+}
+
+/* Overlay to tint the pattern and keep it subtle */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(245, 239, 230, 0.55);  /* beige wash — softens the pattern */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure all main content sits above the overlay */
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+body.rtl {
+  direction: rtl;
+  font-family: 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Playfair Display', Georgia, serif;
+}
+
+body.rtl .menu-item-name,
+body.rtl .section-title,
+body.rtl .café-name {
+  font-family: 'Noto Naskh Arabic', serif;
+  letter-spacing: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ============================================================
+   TOP FLOATING BRANDING & LANGUAGE (Transparent, NO Solid Bar)
+   ============================================================ */
+.top-nav-floating {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 32px;
+  background: transparent;
+  pointer-events: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Container for top controls: Social links + Language switcher */
+.top-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* Container for individual social shapes */
+.top-social-bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+}
+
+/* EACH ICON IN ITS OWN INDIVIDUAL GLASSY SHAPE */
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  background: rgba(44, 26, 14, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 168, 67, 0.42);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.48),
+              inset 0 1px 1px rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  transition: all 0.28s cubic-bezier(0.34, 1.3, 0.64, 1);
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.social-btn svg {
+  display: block;
+  width: 17px;
+  height: 17px;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+/* Hover effect on each individual shape */
+.social-btn:hover {
+  transform: translateY(-3px) scale(1.08);
+  border-color: rgba(212, 168, 67, 0.95);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.6),
+              0 0 14px rgba(212, 168, 67, 0.45);
+}
+
+.social-btn:hover svg {
+  transform: scale(1.12);
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
+}
+
+.social-btn:active {
+  transform: translateY(-1px) scale(0.96);
+}
+
+/* Individual brand colors and glows for each shape on hover */
+.social-btn.instagram:hover {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  border-color: rgba(253, 89, 73, 0.9);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(214, 36, 159, 0.5);
+  color: #ffffff;
+}
+
+.social-btn.facebook:hover {
+  background: #1877F2;
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(24, 119, 242, 0.6);
+  color: #ffffff;
+}
+
+.social-btn.tiktok:hover {
+  background: #000000;
+  border-color: #25F4EE;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), -2px -2px 12px rgba(37, 244, 238, 0.6), 2px 2px 12px rgba(254, 44, 85, 0.6);
+  color: #ffffff;
+}
+
+.social-btn.whatsapp:hover {
+  background: #25D366;
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(37, 211, 102, 0.6);
+  color: #ffffff;
+}
+
+.social-btn.snapchat:hover {
+  background: #FFFC00;
+  border-color: rgba(255, 252, 0, 0.9);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(255, 252, 0, 0.6);
+  color: #000000;
+}
+
+.social-btn.location:hover {
+  background: #EA4335;
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(234, 67, 53, 0.6);
+  color: #ffffff;
+}
+
+.floating-lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(44, 26, 14, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 168, 67, 0.4);
+  border-radius: 30px;
+  padding: 4px 6px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* ── Mobile-only globe/lang button (hidden on desktop/tablet) ── */
+.mobile-lang-btn {
+  display: none; /* shown only at ≤580px */
+  align-items: center;
+  gap: 5px;
+  background: rgba(44, 26, 14, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 168, 67, 0.5);
+  border-radius: 999px;
+  padding: 6px 12px 6px 8px;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+.mobile-lang-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.mobile-lang-btn:hover {
+  background: rgba(212, 168, 67, 0.3);
+  border-color: var(--gold-light);
+  transform: translateY(-2px);
+}
+.mobile-lang-btn:active {
+  transform: scale(0.96);
+}
+
+/* ── Tablet (≤ 768px) — shrink icons slightly ── */
+@media (max-width: 768px) {
+  .top-nav-controls { gap: 6px; }
+  .top-social-bar   { gap: 5px; }
+  .social-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+  }
+  .social-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+/* ── Mobile (≤ 580px) — 2-row compact layout ──────────────────────────────
+   Row 1: Logo + Cafe name  →  centered
+   Row 2: Social icons (compact) + globe lang button  →  centered single row
+   ───────────────────────────────────────────────────────────────────────── */
+@media (max-width: 580px) {
+  .top-nav-floating {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 10px 10px;
+  }
+
+  /* Row 1 — logo area centered */
+  .logo-area {
+    width: 100%;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  /* Row 2 — social icons + lang button on same row, centered */
+  .top-nav-controls {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  /* Social icons — single row, centered, no wrap */
+  .top-social-bar {
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 5px;
+  }
+
+  /* Hide the full lang pill on mobile */
+  .floating-lang-switcher {
+    display: none;
+  }
+
+  /* Show the small globe button on mobile */
+  .mobile-lang-btn {
+    display: flex;
+  }
+
+  /* Smaller social icon buttons on phones */
+  .social-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+  }
+  .social-btn svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  /* Smaller logo badge on phones */
+  .logo-badge {
+    width: 56px;
+    height: 56px;
+  }
+  .café-name {
+    font-size: 1.1rem;
+  }
+}
+
+/* ============================================================
+   HERO VIDEO SECTION — 16:9 Movie Shapes, 3D Circular Rolling
+   Starts right from the very top of the screen (100vh).
+   ============================================================ */
+.hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, rgba(48, 28, 15, 0.96) 0%, rgba(20, 10, 5, 0.99) 100%);
+  overflow-x: clip;
+  padding: 95px 0 24px;       /* room below the floating logo and name */
+  touch-action: pan-y;
+}
+
+/* On mobile the header is now taller (3-row stack), so push hero content down more */
+@media (max-width: 580px) {
+  .hero-section {
+    min-height: 100vh;
+    padding: 160px 0 20px;
+  }
+}
+
+@media (min-width: 581px) and (max-width: 768px) {
+  .hero-section {
+    min-height: 100vh;
+    padding: 100px 0 20px;
+  }
+}
+
+/* 3D Circular Rolling Carousel Container */
+.hero-cards-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  padding: 10px 0 15px;
+  perspective: 1200px;           /* 3D depth for circular rolling */
+  perspective-origin: 50% 50%;
+  width: 100%;
+  touch-action: pan-y;
+}
+
+.hero-cards-track {
+  position: relative;
+  width: 100%;
+  max-width: 1150px;
+  height: 280px;
+  transform-style: preserve-3d;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: pan-y;
+}
+.hero-cards-track.is-grabbing { cursor: grabbing; }
+
+/* Individual 16:9 movie video shape */
+.hero-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 380px;
+  max-width: 82vw;
+  aspect-ratio: 16 / 9;
+  border-radius: 22px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1.5px solid rgba(212, 168, 67, 0.35);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7);
+  transform-origin: center center;
+  cursor: pointer;
+  /* Smooth circular 3D transition */
+  transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1),
+              filter 0.65s ease,
+              opacity 0.65s ease,
+              box-shadow 0.65s ease,
+              border-color 0.65s ease;
+}
+
+/* Active center video card — noticeably bigger than the others */
+.hero-card.active {
+  border-color: rgba(212, 168, 67, 0.95);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.95),
+              0 0 32px rgba(212, 168, 67, 0.45),
+              0 0 0 2px rgba(212, 168, 67, 0.5);
+}
+
+.hero-card-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.06) 0%, rgba(0, 0, 0, 0.82) 100%);
+  position: relative;
+}
+
+.hero-card-hint {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  border: 1px dashed rgba(212, 168, 67, 0.45);
+  padding: 8px 18px;
+  border-radius: 20px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.hero-card:hover .hero-card-hint {
+  color: var(--gold-light);
+  border-color: var(--gold-light);
+  background: rgba(212, 168, 67, 0.15);
+}
+
+.hero-card video,
+.hero-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Scroll prompt cue below hero cards */
+.hero-scroll-cue {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  margin-top: 14px;
+  cursor: pointer;
+  color: var(--gold-light);
+  opacity: 0.85;
+  transition: all 0.3s ease;
+  user-select: none;
+  z-index: 5;
+}
+
+.hero-scroll-cue:hover {
+  opacity: 1;
+  transform: translateY(2px);
+  color: #fff;
+}
+
+.hero-scroll-cue-text {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.hero-scroll-cue-arrow {
+  font-size: 0.95rem;
+  line-height: 1;
+  animation: cueBounce 1.8s infinite;
+}
+
+@keyframes cueBounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(5px); }
+}
+
+/* Three devices responsive styles (16:9 movie video format) */
+/* 1. Desktop: > 900px (380px x 214px) */
+
+/* 2. Tablet: <= 900px */
+@media (max-width: 900px) {
+  .hero-cards-track {
+    height: 240px;
+  }
+  .hero-card {
+    width: 310px;
+    border-radius: 18px;
+  }
+}
+
+/* 3. Mobile phone: <= 600px */
+@media (max-width: 600px) {
+  .hero-cards-track {
+    height: 200px;
+  }
+  .hero-card {
+    width: 240px;
+    border-radius: 16px;
+  }
+  .hero-card-hint {
+    font-size: 0.65rem;
+    padding: 6px 12px;
+  }
+}
+
+/* Logo area */
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  user-select: none;
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.7));
+  transition: transform var(--transition);
+}
+
+.logo-area:hover {
+  transform: translateY(-2px);
+}
+
+/* Logo badge — made bigger as requested */
+.logo-badge {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2.5px solid var(--gold-light);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 4px rgba(212, 168, 67, 0.28);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.logo-badge:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 5px rgba(212, 168, 67, 0.45);
+}
+
+/* mix-blend-mode:multiply = white pixels → transparent,
+   teal/black logo elements stay perfectly visible */
+.logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;    /* full logo visible, not cropped */
+  mix-blend-mode: multiply;
+}
+
+/* Fallback icon if logo.png not found */
+.logo-fallback {
+  font-size: 2rem;
+  color: var(--gold-light);
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.café-name {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85), 0 0 2px rgba(0, 0, 0, 0.9);
+}
+
+.café-tagline {
+  font-size: 0.68rem;
+  color: var(--gold-light);
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* Language switcher */
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 30px;
+  padding: 3px 5px;
+  flex-shrink: 0;
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: rgba(245,239,230,0.65);
+  transition: all var(--transition);
+  font-family: var(--font-sans);
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+}
+
+.lang-btn:hover {
+  color: var(--cream-light);
+  background: rgba(255,255,255,0.1);
+}
+
+.lang-btn.active {
+  background: var(--gold);
+  color: var(--brown-dark);
+  font-weight: 700;
+}
+
+/* Header bottom decorative rule */
+.header-bottom {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-bottom::before,
+.header-bottom::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(212,168,67,0.5), transparent);
+}
+
+.header-bottom-text {
+  font-size: 0.62rem;
+  color: var(--gold-light);
+  opacity: 0.8;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   CATEGORY NAV — Sticky glassy pill, follows scroll like a navbar
+   ============================================================ */
+.cat-nav {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 14px;
+  z-index: 900;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: center;
+  background: transparent;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.34, 1.25, 0.64, 1), opacity 0.3s ease;
+}
+
+/* When scrolling down or up: glassy shape comes down from the top and stays fixed */
+.cat-nav.cat-nav-floating {
+  position: fixed;
+  top: 14px;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  animation: slideDownIn 0.38s cubic-bezier(0.34, 1.25, 0.64, 1) forwards;
+}
+
+@keyframes slideDownIn {
+  from {
+    transform: translateY(-45px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .cat-nav,
+  .cat-nav.cat-nav-floating {
+    top: 8px;
+    padding: 6px 10px;
+  }
+}
+
+.cat-nav-inner {
+  display: flex;
+  overflow-x: auto;
+  gap: 8px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 8px 16px;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+
+  /* ✨ Ultra-Luxe Brown Glassmorphism Shape */
+  background: linear-gradient(135deg, rgba(54, 28, 14, 0.92) 0%, rgba(26, 13, 6, 0.96) 100%);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1.5px solid rgba(212, 168, 67, 0.45);
+  border-radius: 999px;
+  box-shadow:
+    0 12px 36px rgba(18, 9, 4, 0.60),
+    0 0 20px rgba(212, 168, 67, 0.16),
+    inset 0 1px 1px rgba(255, 255, 255, 0.22);
+}
+
+.cat-nav-inner::-webkit-scrollbar { display: none; }
+
+.cat-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  padding: 7px 16px 8px;
+  font-family: var(--font-sans);
+  color: rgba(255, 255, 255, 0.82);
+  white-space: nowrap;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 64px;
+  position: relative;
+}
+
+.cat-btn .cat-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease;
+}
+
+/* Classic white icons */
+.cat-svg-icon {
+  width: 24px;
+  height: 24px;
+  color: #ffffff;
+  stroke: #ffffff;
+  display: block;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.cat-btn .cat-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.85);
+  transition: color 0.25s ease;
+}
+
+body.rtl .cat-btn .cat-label {
+  font-family: 'Noto Sans Arabic', sans-serif;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.68rem;
+}
+
+.cat-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.cat-btn:hover .cat-svg-icon {
+  transform: scale(1.12);
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.75));
+}
+
+/* Active state — glowing warm gold glass pill inside the brown glass container */
+.cat-btn.active {
+  background: linear-gradient(135deg, rgba(212, 168, 67, 0.42) 0%, rgba(160, 98, 42, 0.62) 100%) !important;
+  border-color: rgba(212, 168, 67, 0.85);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    0 0 14px rgba(212, 168, 67, 0.38);
+}
+
+.cat-btn.active .cat-svg-icon {
+  transform: scale(1.14);
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 4px rgba(212, 168, 67, 0.85));
+}
+
+.cat-btn.active .cat-label {
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* ============================================================
+   MAIN CONTENT — Full width edge-to-edge
+   ============================================================ */
+.main-content {
+  padding-top: 10px;
+  min-height: 100vh;
+  width: 100%;
+}
+
+#menuContainer {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 20px 0 60px;
+}
+
+
+/* ============================================================
+   HERO — Full-screen brown bar that shrinks on scroll
+   ============================================================ */
+.hero-fullscreen {
+  width: 100%;
+  height: calc(100vh - 96px);  /* full screen minus header height */
+  background: var(--brown-dark);
+  position: relative;
+  overflow: hidden;
+  transition: height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Collapsed state — added by JS when scrolled down */
+.hero-fullscreen.hero-collapsed {
+  height: 0;
+}
+
+/* ============================================================
+   VIDEO FRAMES — 3 draggable black rounded rectangles
+   ============================================================ */
+.video-frame {
+  position: absolute;
+  width: 220px;
+  height: 145px;
+  background: #090909;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.07);
+  box-shadow:
+    0 12px 40px rgba(0,0,0,0.7),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* floating pulse — subtle glow animation */
+  animation: framePulse 4s ease-in-out infinite;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* Each frame has a slightly different pulse timing */
+#vf2 { animation-delay: -1.3s; }
+#vf3 { animation-delay: -2.7s; }
+
+@keyframes framePulse {
+  0%, 100% { box-shadow: 0 12px 40px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.04); }
+  50%       { box-shadow: 0 12px 50px rgba(0,0,0,0.8), 0 0 0 1.5px rgba(212,168,67,0.15), inset 0 1px 0 rgba(255,255,255,0.06); }
+}
+
+.video-frame:hover {
+  border-color: rgba(212,168,67,0.3);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.85), 0 0 0 1.5px rgba(212,168,67,0.2);
+  animation-play-state: paused;
+}
+
+.video-frame.dragging {
+  cursor: grabbing;
+  animation-play-state: paused;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.9), 0 0 0 2px rgba(212,168,67,0.4);
+  z-index: 50 !important;
+  transition: none;
+}
+
+/* Label inside the frame */
+.vf-label {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.18);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* If user adds a <video> inside the frame it fills it */
+.video-frame video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 19px;
+}
+
+
+/* ============================================================
+   CATEGORY SECTION
+   ============================================================ */
+.menu-section {
+  margin-bottom: 60px;
+  padding-top: 56px;   /* room for floating circle images that pop above the card */
+}
+
+.section-header {
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ✨ Brown Glassy Pill Shape for Category Titles (Coffee, Cold Drinks, etc.) */
+.section-title-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 28px;
+  border-radius: 999px;
+
+  /* Rich brown glassmorphism */
+  background: linear-gradient(135deg, rgba(54, 28, 14, 0.90) 0%, rgba(26, 13, 6, 0.96) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1.5px solid rgba(212, 168, 67, 0.45);
+  box-shadow:
+    0 10px 32px rgba(20, 10, 5, 0.45),
+    0 0 16px rgba(212, 168, 67, 0.16),
+    inset 0 1px 1px rgba(255, 255, 255, 0.22);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section-title-badge:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 40px rgba(20, 10, 5, 0.55),
+    0 0 22px rgba(212, 168, 67, 0.25),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+/* Icon next to the title inside the brown glass badge */
+.section-title-badge .section-subtitle-icon {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.section-title-badge .section-subtitle-icon .cat-svg-icon {
+  width: 26px;
+  height: 26px;
+  stroke: #ffffff;
+  color: #ffffff;
+  display: block;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6));
+}
+
+/* Section Title text inside the brown glass badge */
+.section-title-badge .section-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+  margin: 0;
+  line-height: 1.2;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+body.rtl .section-title-badge .section-title {
+  font-family: 'Noto Naskh Arabic', serif;
+  letter-spacing: 0;
+  font-size: 1.3rem;
+}
+
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+}
+
+.section-divider-dot {
+  color: var(--brown-warm);
+  font-size: 0.6rem;
+}
+
+/* ============================================================
+   CAROUSEL WRAPPER — 100% Edge-to-Edge on Every Device Screen
+   ============================================================ */
+.carousel-wrapper {
+  position: relative;
+  overflow-x: clip;
+  overflow-y: visible;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* RIGHT fade — items dissolve seamlessly as they touch the screen's right edge */
+.carousel-fade-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 130px;
+  height: 100%;
+  background: linear-gradient(to left, rgba(245, 239, 230, 0.98) 0%, rgba(245, 239, 230, 0.82) 40%, rgba(245, 239, 230, 0.22) 75%, transparent 100%);
+  backdrop-filter: blur(2.5px);
+  -webkit-backdrop-filter: blur(2.5px);
+  pointer-events: none;
+  z-index: 6;
+}
+
+/* LEFT fade — items dissolve seamlessly as they touch the screen's left edge */
+.carousel-fade-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 130px;
+  height: 100%;
+  background: linear-gradient(to right, rgba(245, 239, 230, 0.98) 0%, rgba(245, 239, 230, 0.82) 40%, rgba(245, 239, 230, 0.22) 75%, transparent 100%);
+  backdrop-filter: blur(2.5px);
+  -webkit-backdrop-filter: blur(2.5px);
+  pointer-events: none;
+  z-index: 6;
+}
+
+/* ============================================================
+   MENU GRID — Full width edge-to-edge scrollable track
+   ============================================================ */
+.menu-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 18px;
+  padding: 64px 60px 48px;   /* Abundant headroom so expanded card top edge never clips */
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+}
+
+.menu-grid::-webkit-scrollbar { display: none; }
+.menu-grid.is-dragging { cursor: grabbing; }
+
+
+/* ============================================================
+   SECTION & ITEMS REVEAL — Bidirectional Fade Appear
+   Scroll Down: Section & items smoothly glide UP and fade in.
+   Scroll Up:   Section & items smoothly glide DOWN and fade in.
+   ============================================================ */
+.menu-section {
+  opacity: 0;
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+/* Default / Enters from bottom (scrolling down) */
+.menu-section.reveal-from-bottom:not(.revealed) {
+  opacity: 0;
+  transform: translateY(42px) scale(0.97);
+}
+
+/* Enters from top (scrolling up) */
+.menu-section.reveal-from-top:not(.revealed) {
+  opacity: 0;
+  transform: translateY(-42px) scale(0.97);
+}
+
+/* Fully revealed active state */
+.menu-section.revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ── Section Header Fade Appear ── */
+.menu-section:not(.revealed) .section-header {
+  opacity: 0;
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-section.reveal-from-bottom:not(.revealed) .section-header {
+  transform: translateY(22px) scale(0.96);
+}
+
+.menu-section.reveal-from-top:not(.revealed) .section-header {
+  transform: translateY(-22px) scale(0.96);
+}
+
+.menu-section.revealed .section-header {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Carousel Wrapper Fade Appear ── */
+.menu-section:not(.revealed) .carousel-wrapper {
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+
+.menu-section.revealed .carousel-wrapper {
+  opacity: 1;
+  transition: opacity 0.65s ease;
+}
+
+/* ── ITEMS (Menu Cards) Bidirectional Fade Appear & Ripple ── */
+.menu-section:not(.revealed) .menu-card {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-section.reveal-from-bottom:not(.revealed) .menu-card {
+  opacity: 0;
+  transform: translateY(32px) scale(0.94);
+}
+
+.menu-section.reveal-from-top:not(.revealed) .menu-card {
+  opacity: 0;
+  transform: translateY(-32px) scale(0.94);
+}
+
+.menu-section.revealed .menu-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  transition: opacity 0.58s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.58s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease,
+              background 0.3s ease;
+}
+
+/* Cascading stagger entrance for cards */
+.menu-section.revealed .menu-card:nth-child(1) { transition-delay: 0.04s; }
+.menu-section.revealed .menu-card:nth-child(2) { transition-delay: 0.08s; }
+.menu-section.revealed .menu-card:nth-child(3) { transition-delay: 0.12s; }
+.menu-section.revealed .menu-card:nth-child(4) { transition-delay: 0.16s; }
+.menu-section.revealed .menu-card:nth-child(5) { transition-delay: 0.20s; }
+.menu-section.revealed .menu-card:nth-child(6) { transition-delay: 0.24s; }
+.menu-section.revealed .menu-card:nth-child(7) { transition-delay: 0.28s; }
+.menu-section.revealed .menu-card:nth-child(8) { transition-delay: 0.32s; }
+
+/* Immediate response on hover and expanded card */
+.menu-section.revealed .menu-card:hover {
+  transition-delay: 0s !important;
+}
+
+.menu-section.revealed .menu-card.is-expanded {
+  transition-delay: 0s !important;
+}
+
+/* ============================================================
+   MENU CARD — circular image INSIDE the card
+   Default: shows only image & name (compact)
+   Tapped: card becomes bigger & reveals description
+   ============================================================ */
+.menu-card {
+  background: rgba(255, 253, 249, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--border-light);
+  border-radius: 22px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex-shrink: 0;
+  width: 160px;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1),
+              filter 0.35s ease,
+              opacity 0.35s ease,
+              box-shadow 0.35s ease,
+              border-color 0.35s ease,
+              background 0.3s ease;
+}
+
+@media (min-width: 480px)  { .menu-card { width: 172px; } }
+@media (min-width: 768px)  { .menu-card { width: 188px; } }
+@media (min-width: 1024px) { .menu-card { width: 205px; } }
+
+.menu-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  border-color: rgba(184, 134, 11, 0.45);
+}
+
+/* Other cards become blurred & dimmed when an item is tapped — ONLY the chosen one stands out */
+.menu-grid.has-active-card .menu-card:not(.is-expanded) {
+  filter: blur(5px) brightness(0.58) !important;
+  opacity: 0.30 !important;
+  transform: scale(0.90) !important;
+  pointer-events: none;
+  transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Active / Tapped state — ONLY THE CHOSEN SHAPE BECOMES BIGGER IN PLACE (no clipping line, zero movement) */
+.menu-card.is-expanded {
+  transform: scale(1.16) translateY(2px) !important;
+  transform-origin: center center;
+  z-index: 80 !important;
+  background: #ffffff !important;
+  border-color: var(--gold) !important;
+  filter: none !important;
+  opacity: 1 !important;
+  box-shadow: 0 18px 45px rgba(44, 26, 14, 0.32),
+              0 0 0 2.5px var(--gold-light),
+              0 0 22px rgba(212, 168, 67, 0.38) !important;
+  transition: all 0.35s cubic-bezier(0.34, 1.25, 0.64, 1);
+}
+
+@media (max-width: 480px) {
+  .menu-card.is-expanded {
+    transform: scale(1.12) translateY(2px) !important;
+  }
+}
+
+.menu-card.is-expanded .card-image-wrap {
+  transform: scale(1.06);
+  border-color: var(--gold-light);
+  box-shadow: 0 6px 18px rgba(44, 26, 14, 0.25);
+}
+
+/* Circular image / classic icon INSIDE the card at the top */
+.card-image-wrap {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 18px auto 0;
+  border: 2.5px solid var(--gold-light);
+  box-shadow: 0 4px 16px rgba(44, 26, 14, 0.25), 0 0 0 2px rgba(212, 168, 67, 0.2);
+  background: radial-gradient(circle at center, #5c3317 0%, #2c1a0e 70%, #1a1008 100%);
+  flex-shrink: 0;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+@media (min-width: 768px) {
+  .card-image-wrap { width: 110px; height: 110px; }
+}
+
+.card-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.menu-card:hover .card-image-wrap img {
+  transform: scale(1.08);
+}
+
+/* Classic icon inside the circle */
+.card-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 40% 35%, #5c3317 0%, #2c1a0e 65%, #180f08 100%);
+}
+
+.card-placeholder-icon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+  transition: transform 0.35s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+
+.card-placeholder-icon .cat-svg-icon {
+  width: 48px;
+  height: 48px;
+  stroke: #ffffff;
+  color: #ffffff;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.65));
+}
+
+.menu-card:hover .card-placeholder-icon {
+  transform: scale(1.14) rotate(-4deg);
+}
+
+.card-placeholder-label { display: none; }
+
+/* Popular badge */
+.badge-popular {
+  position: absolute;
+  top: 8px; right: 8px;
+  background: var(--gold);
+  color: #fff;
+  font-size: 0.55rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 2; white-space: nowrap;
+}
+
+/* Card body — centered text below the circle */
+.card-body {
+  padding: 12px 12px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.menu-item-name {
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+  line-height: 1.3;
+}
+
+body.rtl .menu-item-name {
+  font-family: 'Noto Naskh Arabic', serif;
+}
+
+/* Description is HIDDEN by default — shows only when tapped */
+.menu-item-desc {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0 4px;
+  display: block;
+  transition: max-height 0.35s ease, opacity 0.35s ease, margin 0.35s ease;
+}
+
+/* When tapped, description expands smoothly */
+.menu-card.is-expanded .menu-item-desc {
+  max-height: 140px;
+  opacity: 1;
+  margin-top: 6px;
+  color: var(--text-body);
+}
+
+.card-footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border-light);
+}
+
+.menu-item-price {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--brown-coffee);
+  letter-spacing: 0.01em;
+}
+
+/* ============================================================
+   NO RESULTS
+   ============================================================ */
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+  display: none;
+}
+
+.no-results.visible {
+  display: block;
+}
+
+.no-results-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+.no-results-text {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--brown-mid);
+}
+
+.no-results-sub {
+  font-size: 0.82rem;
+  margin-top: 6px;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer {
+  background: var(--brown-dark);
+  color: rgba(245,239,230,0.6);
+  text-align: center;
+  padding: 28px 20px 24px;
+}
+
+.footer-logo {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--gold-light);
+  margin-bottom: 6px;
+}
+
+.footer-tagline {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  opacity: 0.6;
+}
+
+.footer-divider {
+  width: 60px;
+  height: 1px;
+  background: rgba(212,168,67,0.4);
+  margin: 12px auto;
+}
+
+.footer-copy {
+  font-size: 0.7rem;
+  opacity: 0.45;
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.hidden {
+  display: none !important;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brown-warm);
+}
+
+/* ============================================================
+   RESPONSIVE TWEAKS — Full multi-device coverage
+   ============================================================ */
+
+/* ── Extra-small phones (≤ 360px) ── */
+@media (max-width: 360px) {
+  .café-name       { font-size: 0.88rem; }
+  .café-tagline    { font-size: 0.5rem; letter-spacing: 0.07em; }
+  .lang-btn        { padding: 4px 5px; font-size: 0.6rem; }
+  .lang-switcher   { gap: 1px; padding: 2px 4px; }
+  .logo-badge      { width: 40px; height: 40px; }
+  .header-inner    { padding: 8px 12px 6px; }
+  .section-title   { font-size: 1.1rem; }
+  .menu-item-name  { font-size: 0.76rem; }
+  .menu-item-desc  { font-size: 0.63rem; }
+  .menu-card       { width: 118px; }
+  .card-image-wrap { width: 68px; height: 68px; }
+  .menu-grid       { padding: 44px 12px 28px; gap: 8px; overflow-y: visible; }
+  .cat-btn         { min-width: 44px; padding: 5px 8px 6px; }
+  .cat-btn .cat-icon  { font-size: 1.3rem; }
+  .cat-btn .cat-label { font-size: 0.48rem; }
+  .cat-nav-inner   { padding: 6px 8px; gap: 2px; }
+  .social-btn      { width: 25px; height: 25px; border-radius: 7px; }
+  .social-btn svg  { width: 11px; height: 11px; }
+  .mobile-lang-btn { padding: 5px 9px 5px 6px; font-size: 0.62rem; }
+}
+
+/* ── Small phones (361px – 480px) ── */
+@media (min-width: 361px) and (max-width: 480px) {
+  .café-name       { font-size: 1rem; }
+  .café-tagline    { font-size: 0.55rem; }
+  .lang-btn        { padding: 4px 7px; font-size: 0.65rem; }
+  .logo-badge      { width: 48px; height: 48px; }
+  .header-inner    { padding: 10px 14px 8px; }
+  .section-title   { font-size: 1.25rem; }
+  .menu-item-name  { font-size: 0.8rem; }
+  .menu-item-desc  { font-size: 0.66rem; }
+  .menu-card       { width: 132px; }
+  .card-image-wrap { width: 78px; height: 78px; }
+  .menu-grid       { padding: 48px 16px 32px; gap: 10px; overflow-y: visible; }
+  .cat-btn         { min-width: 52px; }
+  .cat-btn .cat-icon  { font-size: 1.5rem; }
+  .cat-btn .cat-label { font-size: 0.52rem; }
+}
+
+/* ── All phones (≤ 480px) — shared fixes ── */
+@media (max-width: 480px) {
+  /* Header top row — prevent wrapping */
+  .header-top      { gap: 8px; }
+  .logo-area       { gap: 8px; min-width: 0; }
+  .logo-text       { min-width: 0; }
+  .café-name       { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* Category nav — allow horizontal scroll with smaller pills */
+  .cat-nav-inner   { border-radius: 20px; }
+
+  /* Edge-to-edge fade for phones */
+  .carousel-fade-right,
+  .carousel-fade-left { width: 45px; }
+
+  /* Section spacing */
+  .menu-section    { margin-bottom: 40px; padding-top: 36px; }
+  #menuContainer   { padding: 16px 0 48px; }
+
+  /* Footer */
+  .site-footer     { padding: 22px 16px 20px; }
+}
+
+/* ── Large phones / small tablets (481px – 767px) ── */
+@media (min-width: 481px) and (max-width: 767px) {
+  .menu-card       { width: 164px; }
+  .card-image-wrap { width: 96px; height: 96px; }
+  .menu-grid       { padding: 58px 32px 40px; gap: 14px; overflow-y: visible; }
+  .carousel-fade-right,
+  .carousel-fade-left { width: 75px; }
+  #menuContainer   { padding: 20px 0 56px; }
+}
+
+/* ── Tablets (768px – 1023px) ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .menu-card       { width: 188px; }
+  .card-body       { padding: 13px 14px 14px; }
+  .menu-item-name  { font-size: 0.93rem; }
+  .menu-item-desc  { font-size: 0.74rem; }
+  .menu-grid       { padding: 60px 44px 44px; gap: 16px; overflow-y: visible; }
+  .carousel-fade-right,
+  .carousel-fade-left { width: 100px; }
+  #menuContainer   { padding: 24px 0 70px; }
+  .section-title   { font-size: 1.4rem; }
+}
+
+/* ── Desktop (≥ 1024px) ── */
+@media (min-width: 1024px) {
+  .card-body       { padding: 14px 16px 16px; }
+  .menu-item-name  { font-size: 0.96rem; }
+  .menu-item-desc  { font-size: 0.76rem; }
+  .section-title   { font-size: 1.55rem; }
+  .menu-grid       { padding: 24px 60px 32px; gap: 18px; }
+  .carousel-fade-right,
+  .carousel-fade-left { width: 130px; }
+  #menuContainer   { padding: 28px 0 80px; }
+}
+
+/* ── Wide desktop (≥ 1280px) ── */
+@media (min-width: 1280px) {
+  .menu-card       { width: 215px; }
+  .card-image-wrap { width: 116px; height: 116px; }
+}
+
+/* ── Touch device improvements ── */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover transforms on touch — they stick after tap */
+  .menu-card:hover:not(.is-expanded) {
+    box-shadow: var(--shadow-sm);
+    transform: none;
+  }
+  .cat-btn:hover {
+    background: transparent;
+    color: rgba(44, 26, 14, 0.6);
+    transform: none;
+  }
+  .cat-btn:hover .cat-icon { transform: none; }
+
+  /* Bigger tap targets */
+  .lang-btn        { padding: 7px 10px; }
+  .cat-btn         { padding: 8px 14px 10px; }
+}
+
+/* ============================================================
+   WELCOME / LANGUAGE SELECTION SPLASH SCREEN
+   ============================================================ */
+.lang-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(18, 10, 5, 0.94);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0.5s ease;
+}
+
+.lang-modal-overlay.is-dismissed {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.lang-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 760px;
+  background: radial-gradient(circle at center, rgba(58, 32, 18, 0.95) 0%, rgba(22, 12, 6, 0.98) 100%);
+  border: 1.5px solid rgba(212, 168, 67, 0.45);
+  border-radius: 32px;
+  padding: 26px 18px 22px;
+  text-align: center;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.92),
+              0 0 40px rgba(212, 168, 67, 0.25),
+              inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: modalEntrance 0.55s cubic-bezier(0.34, 1.25, 0.64, 1);
+  overflow: hidden;
+}
+
+@keyframes modalEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.lang-modal-badge {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2.5px solid var(--gold-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 0 0 5px rgba(212, 168, 67, 0.28);
+  margin-bottom: 8px;
+}
+
+.lang-modal-badge .logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.lang-modal-badge .logo-fallback {
+  font-size: 2rem;
+  color: var(--gold-light);
+}
+
+.lang-modal-title {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--cream-light);
+  letter-spacing: 0.04em;
+  margin-bottom: 3px;
+}
+
+.lang-modal-welcome {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+  min-height: 1.35em;
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s ease;
+}
+
+.lang-modal-line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold-light), transparent);
+  margin-bottom: 8px;
+}
+
+.lang-modal-instruction {
+  font-size: 0.72rem;
+  color: rgba(245, 239, 230, 0.75);
+  line-height: 1.5;
+  margin-bottom: 12px;
+  min-height: 1.35em;
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s ease;
+}
+
+/* ── 3D Circular Rolling Carousel Container for Languages ── */
+.lang-cards-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 660px;
+  height: 235px;
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 4px 0 16px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.lang-cards-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lang-cards-track.is-grabbing { cursor: grabbing; }
+
+/* Individual 3D shape language card (styled like the hero cards) */
+.lang-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  max-width: 76vw;
+  aspect-ratio: 16 / 10;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(46, 26, 14, 0.94), rgba(20, 11, 5, 0.98));
+  border: 1.5px solid rgba(212, 168, 67, 0.35);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75);
+  transform-origin: center center;
+  cursor: pointer;
+  transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1),
+              filter 0.65s ease,
+              opacity 0.65s ease,
+              box-shadow 0.65s ease,
+              border-color 0.65s ease;
+}
+
+/* Center Active Language Card — Noticeably bigger with gold glow */
+.lang-card.active {
+  border-color: rgba(212, 168, 67, 0.95);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95),
+              0 0 28px rgba(212, 168, 67, 0.45),
+              0 0 0 1.5px rgba(212, 168, 67, 0.6);
+}
+
+.lang-card-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 22px;
+  background: radial-gradient(circle at center, rgba(123, 74, 30, 0.22) 0%, rgba(20, 10, 5, 0.88) 100%);
+  gap: 14px;
+  text-align: center;
+}
+
+.lang-card-name {
+  font-family: var(--font-serif);
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.15;
+  letter-spacing: 0.03em;
+}
+
+.lang-card.kurdish .lang-card-name,
+.lang-card.arabic .lang-card-name,
+.lang-card.persian .lang-card-name {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 1.85rem;
+}
+
+/* Glowing Enter CTA button on the card */
+.lang-card-cta {
+  background: linear-gradient(135deg, rgba(212, 168, 67, 0.35) 0%, rgba(160, 98, 42, 0.65) 100%);
+  border: 1px solid rgba(212, 168, 67, 0.85);
+  border-radius: 999px;
+  padding: 7px 22px;
+  font-family: var(--font-sans);
+  font-size: 0.80rem;
+  font-weight: 700;
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), 0 0 10px rgba(212, 168, 67, 0.3);
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.lang-card.active .lang-card-cta {
+  background: linear-gradient(135deg, rgba(212, 168, 67, 0.6) 0%, rgba(184, 134, 11, 0.85) 100%);
+  box-shadow: 0 4px 16px rgba(212, 168, 67, 0.45);
+}
+
+.lang-card-cta:hover {
+  transform: scale(1.05);
+  background: var(--gold-light);
+  color: var(--brown-dark);
+}
+
+/* Arrow buttons on the sides of the carousel */
+.lang-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(44, 26, 14, 0.85);
+  border: 1px solid rgba(212, 168, 67, 0.5);
+  color: var(--gold-light);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 25;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+  transition: all 0.25s ease;
+}
+
+.lang-nav-arrow.prev { left: 4px; }
+.lang-nav-arrow.next { right: 4px; }
+
+.lang-nav-arrow:hover {
+  background: var(--gold);
+  color: var(--brown-dark);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Indicator dots below the carousel */
+.lang-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+.lang-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.lang-dot.active {
+  width: 22px;
+  border-radius: 10px;
+  background: var(--gold-light);
+  box-shadow: 0 0 8px rgba(212, 168, 67, 0.6);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .lang-cards-wrap {
+    height: 205px;
+  }
+  .lang-card {
+    width: 220px;
+  }
+  .lang-card-inner {
+    padding: 14px 16px;
+    gap: 6px;
+  }
+  .lang-card-name {
+    font-size: 1.25rem;
+  }
+  .lang-card-cta {
+    padding: 5px 14px;
+    font-size: 0.68rem;
+  }
+}
+
+/* Skip / Enter cue below modal dots */
+.lang-modal-skip-btn {
+  margin-top: 14px;
+  background: transparent;
+  border: 1px solid rgba(212, 168, 67, 0.35);
+  color: var(--gold-light);
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lang-modal-skip-btn:hover {
+  background: rgba(212, 168, 67, 0.2);
+  border-color: var(--gold-light);
+  color: #fff;
+  transform: translateY(2px);
+}
