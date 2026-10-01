@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO -->
+  <title>Mr.Cafe 2 — Premium Digital Menu</title>
+  <meta name="description" content="Welcome to Mr.Cafe 2 — explore our premium menu of coffees, cold drinks, teas, desserts and snacks. Classic, elegant, and warm." />
+  <meta name="theme-color" content="#2c1a0e" />
+
+  <!-- Favicon: Mr.Cafe 2 logo in browser tab -->
+  <link rel="icon" type="image/png" href="images/logo.png" />
+  <link rel="apple-touch-icon" href="images/logo.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&family=Noto+Naskh+Arabic:wght@400;600;700&family=Noto+Sans+Arabic:wght@300;400;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       WELCOME / LANGUAGE SELECTION SCREEN (3-Shape 3D Drum Design)
+       ============================================================ -->
+  <div class="lang-modal-overlay" id="langModalOverlay" role="dialog" aria-modal="true" aria-label="Select Language">
+    <div class="lang-modal-card">
+      <div class="lang-modal-badge">
+        <img
+          src="images/logo.png"
+          alt="Mr.Cafe 2 Logo"
+          class="logo-img"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="logo-fallback" style="display:none;">☕</div>
+      </div>
+      <h1 class="lang-modal-title">Mr.Cafe 2</h1>
+      <p class="lang-modal-welcome" id="langModalWelcome">Welcome to Mr.Cafe 2</p>
+      <div class="lang-modal-line"></div>
+      <p class="lang-modal-instruction" id="langModalInstruction">Choose your language</p>
+
+      <!-- 3D Circular Rolling Shapes Carousel for Language Selection -->
+      <div class="lang-cards-wrap" id="langCardsWrap">
+        <div class="lang-cards-track" id="langCardsTrack">
+
+          <!-- 1. English -->
+          <div class="lang-card" data-lang="en" id="lc-en">
+            <div class="lang-card-inner">
+              <h3 class="lang-card-name">English</h3>
+              <button class="lang-card-cta" onclick="selectLangAndEnter('en')">Enter Menu &rarr;</button>
+            </div>
+          </div>
+
+          <!-- 2. Kurdish -->
+          <div class="lang-card kurdish" data-lang="ku" id="lc-ku">
+            <div class="lang-card-inner">
+              <h3 class="lang-card-name">کوردی</h3>
+              <button class="lang-card-cta" onclick="selectLangAndEnter('ku')">بچۆ ژوورەوە &larr;</button>
+            </div>
+          </div>
+
+          <!-- 3. Arabic -->
+          <div class="lang-card arabic" data-lang="ar" id="lc-ar">
+            <div class="lang-card-inner">
+              <h3 class="lang-card-name">عربي</h3>
+              <button class="lang-card-cta" onclick="selectLangAndEnter('ar')">دخول القائمة &larr;</button>
+            </div>
+          </div>
+
+          <!-- 4. Persian (Farsi) -->
+          <div class="lang-card persian" data-lang="fa" id="lc-fa">
+            <div class="lang-card-inner">
+              <h3 class="lang-card-name">فارسی</h3>
+              <button class="lang-card-cta" onclick="selectLangAndEnter('fa')">ورود به منو &larr;</button>
+            </div>
+          </div>
+
+          <!-- 5. Turkish -->
+          <div class="lang-card turkish" data-lang="tr" id="lc-tr">
+            <div class="lang-card-inner">
+              <h3 class="lang-card-name">Türkçe</h3>
+              <button class="lang-card-cta" onclick="selectLangAndEnter('tr')">Menüye Gir &rarr;</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Navigation arrows -->
+        <button class="lang-nav-arrow prev" id="langPrevArrow" aria-label="Previous Language">&#10094;</button>
+        <button class="lang-nav-arrow next" id="langNextArrow" aria-label="Next Language">&#10095;</button>
+      </div>
+
+      <!-- Carousel dots -->
+      <div class="lang-dots" id="langDots">
+        <span class="lang-dot active" data-index="0"></span>
+        <span class="lang-dot" data-index="1"></span>
+        <span class="lang-dot" data-index="2"></span>
+        <span class="lang-dot" data-index="3"></span>
+        <span class="lang-dot" data-index="4"></span>
+      </div>
+
+      <!-- Quick Enter / Scroll to menu cue -->
+      <button class="lang-modal-skip-btn" id="langModalSkipBtn" onclick="selectLangAndEnter(window._activeModalLang || currentLang)">
+        <span>Our Menu</span> <span>&darr;</span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TOP FLOATING BRANDING & LANGUAGE (Transparent — NO solid bar)
+       ============================================================ -->
+  <div class="top-nav-floating" id="topNavFloating">
+    <!-- Logo Badge & Cafe Name -->
+    <div class="logo-area" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="cursor: pointer;" title="Mr.Cafe 2">
+      <div class="logo-badge">
+        <img
+          src="images/logo.png"
+          alt="Mr.Cafe 2 Logo"
+          class="logo-img"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <!-- Fallback if logo.png not found -->
+        <div class="logo-fallback" style="display:none;">☕</div>
+      </div>
+      <div class="logo-text">
+        <span class="café-name">Mr.Cafe 2</span>
+      </div>
+    </div>
+
+    <!-- Controls: Social Icons Pill + Language Switcher Pill -->
+    <div class="top-nav-controls" id="topNavControls">
+
+      <!-- ============================================================
+           SOCIAL MEDIA & LOCATION LINKS
+           EDIT GUIDE: Replace the href="#" with your actual links anytime!
+           Example: href="https://instagram.com/mr.cafe2"
+           ============================================================ -->
+      <nav class="top-social-bar" aria-label="Social links and location">
+        <!-- 1. Instagram -->
+        <a href="#" class="social-btn instagram" id="socialInstagram" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+
+        <!-- 2. Facebook -->
+        <a href="#" class="social-btn facebook" id="socialFacebook" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+          </svg>
+        </a>
+
+        <!-- 3. TikTok -->
+        <a href="#" class="social-btn tiktok" id="socialTikTok" target="_blank" rel="noopener noreferrer" title="TikTok" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.49 6.33 6.33 0 0 0 1.86-4.49V8.58a8.28 8.28 0 0 0 4.91 1.61V6.69z"></path>
+          </svg>
+        </a>
+
+        <!-- 4. WhatsApp -->
+        <a href="#" class="social-btn whatsapp" id="socialWhatsApp" target="_blank" rel="noopener noreferrer" title="WhatsApp" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
+          </svg>
+        </a>
+
+        <!-- 5. Snapchat -->
+        <a href="#" class="social-btn snapchat" id="socialSnapchat" target="_blank" rel="noopener noreferrer" title="Snapchat" aria-label="Snapchat">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M12.03 2.002c-4.42 0-6.73 3.018-6.73 6.22 0 1.25.43 2.37.89 3.19.16.28.18.42.06.65-.18.35-.68.87-1.44 1.15-.47.17-.67.36-.67.57 0 .32.41.57.94.67.75.14 1.34.02 1.77-.28.32-.23.47-.19.64.04.57.77 1.46 1.43 2.81 1.75.29.07.42.23.4.45-.04.47-.43 1.29-1.92 1.63-.44.1-.64.33-.64.57 0 .42.54.72 1.57.85 1.2.15 2.19-.36 2.32-.44.14-.09.31-.05.41.05.3.31.78.7 1.59.7.81 0 1.29-.39 1.59-.7.1-.1.27-.14.41-.05.13.08 1.12.59 2.32.44 1.03-.13 1.57-.43 1.57-.85 0-.24-.2-.47-.64-.57-1.49-.34-1.88-1.16-1.92-1.63-.02-.22.11-.38.4-.45 1.35-.32 2.24-.98 2.81-1.75.17-.23.32-.27.64-.04.43.3 1.02.42 1.77.28.53-.1.94-.35.94-.67 0-.21-.2-.4-.67-.57-.76-.28-1.26-.8-1.44-1.15-.12-.23-.1-.37.06-.65.46-.82.89-1.94.89-3.19 0-3.202-2.31-6.22-6.73-6.22z"></path>
+          </svg>
+        </a>
+
+        <!-- 6. Location -->
+        <a href="#" class="social-btn location" id="socialLocation" target="_blank" rel="noopener noreferrer" title="Location - Find Us" aria-label="Location">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
+          </svg>
+        </a>
+      </nav>
+
+      <!-- Floating language switcher (5 languages) — hidden on mobile -->
+      <nav class="floating-lang-switcher" aria-label="Language selector">
+        <button class="lang-btn active" data-lang="en"  onclick="setLanguage('en')">EN</button>
+        <button class="lang-btn"        data-lang="ku"  onclick="setLanguage('ku')">کوردی</button>
+        <button class="lang-btn"        data-lang="ar"  onclick="setLanguage('ar')">عربي</button>
+        <button class="lang-btn"        data-lang="fa"  onclick="setLanguage('fa')">فارسی</button>
+        <button class="lang-btn"        data-lang="tr"  onclick="setLanguage('tr')">TR</button>
+      </nav>
+
+      <!-- Small globe lang button — ONLY on mobile (≤580px) — opens language modal -->
+      <button class="mobile-lang-btn" id="mobileLangBtn" onclick="openLangModal()" aria-label="Change language" title="Change language">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <span id="mobileLangLabel">EN</span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       HERO VIDEO SECTION (16:9 Movie Shapes, 3D Rolling Carousel)
+       ============================================================ -->
+  <section class="hero-section" id="heroSection" aria-label="Featured Videos">
+    <!-- 3 scrollable rounded rectangle cards in the brown area -->
+    <div class="hero-cards-wrap">
+      <div class="hero-cards-track" id="heroCardsTrack">
+        <div class="hero-card" id="hc1">
+          <div class="hero-card-inner">
+            <span class="hero-card-hint">▶ + Add Video</span>
+          </div>
+        </div>
+        <div class="hero-card" id="hc2">
+          <div class="hero-card-inner">
+            <span class="hero-card-hint">▶ + Add Video</span>
+          </div>
+        </div>
+        <div class="hero-card" id="hc3">
+          <div class="hero-card-inner">
+            <span class="hero-card-hint">▶ + Add Video</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll hint to menu -->
+    <div class="hero-scroll-cue" onclick="scrollToSection('coffee')">
+      <span class="hero-scroll-cue-text" id="headerBottomText">Our Menu</span>
+      <span class="hero-scroll-cue-arrow">↓</span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MAIN CONTENT
+       ============================================================ -->
+  <main class="main-content" id="mainContent" role="main">
+
+    <!-- Glassy pill — sits on beige, scrolls with menu -->
+    <nav class="cat-nav" aria-label="Menu categories">
+      <div class="cat-nav-inner" id="catNavInner">
+        <!-- Rendered by JS -->
+      </div>
+    </nav>
+
+    <!-- Menu sections -->
+    <div id="menuContainer">
+      <!-- Sections rendered by JS -->
+    </div>
+
+  </main>
+
+
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-logo">Mr.Cafe 2</div>
+    <div class="footer-tagline" id="footerTagline">Coffee &amp; More</div>
+    <div class="footer-divider"></div>
+    <p class="footer-copy">&copy; 2024 Mr.Cafe 2. All rights reserved.</p>
+  </footer>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+
+</body>
+</html>
